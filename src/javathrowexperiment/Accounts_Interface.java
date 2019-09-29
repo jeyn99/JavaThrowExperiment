@@ -33,13 +33,13 @@ public class Accounts_Interface {
 
     public void retrieve() throws IOException {
         System.out.println("--- RETRIEVE ---");
-        System.out.println("\n\t*** Accounts ***");
+        System.out.println("\n\t\t\t*** Accounts ***");
         a = new ArrayList();
         try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts.txt"))) {
             String inside;
             while ((inside = reader.readLine()) != null) {
                 System.out.println(inside);
-                String[] partsA = inside.split("\t");
+                String[] partsA = inside.split("\t\t");
                 a.add(new Accounts(Integer.parseInt(partsA[0]), partsA[1], partsA[2]));
             }
         } catch (FileNotFoundException e) {
@@ -81,8 +81,13 @@ public class Accounts_Interface {
                 System.out.println(ex);
             }
         }
-        a.add(new Accounts(account_id, username, password));
-        ++account_id;
+        if (a.isEmpty()) {
+            a.add(new Accounts(1, username, password));
+        }
+        else {
+            a.add(new Accounts(a.get(a.size()-1).getAcc_id()+1, username, password));
+            account_id = a.get(a.size()-1).getAcc_id();
+        }
     }
 
     public void update() {
@@ -136,7 +141,7 @@ public class Accounts_Interface {
             String str;
             writer.flush();
             for (int i = 0; i < a.size(); i++) {
-                str = a.get(i).getAcc_id() + "\t" + a.get(i).getUsername() + "\t" + hash(a.get(i).getPassword().toCharArray());
+                str = a.get(i).getAcc_id() + "\t\t" + a.get(i).getUsername() + "\t\t" + hash(a.get(i).getPassword().toCharArray());
                 writer.write(str);
                 writer.newLine();
             }
@@ -148,6 +153,7 @@ public class Accounts_Interface {
     public void delete(int acc_id) {
         for (int i = 0; i < a.size(); i++) {
             if (a.get(i).getAcc_id() == acc_id) {
+                System.out.println("Account ID " + acc_id + " in Accounts has been deleted!");
                 a.remove(i);
             }
         }

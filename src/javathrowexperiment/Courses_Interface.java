@@ -22,7 +22,6 @@ import static javathrowexperiment.Accounts.account_id;
 public class Courses_Interface {
 
     ArrayList<Courses> c;
-    private int id = 1;
     Scanner input1 = new Scanner(System.in);
     Scanner input2 = new Scanner(System.in);
     Scanner input3 = new Scanner(System.in);
@@ -32,16 +31,14 @@ public class Courses_Interface {
     }
 
     public void retrieve() throws IOException {
-        System.out.println("\n\t *** Courses ***");
+        System.out.println("\n\t\t\t *** Courses ***");
         c = new ArrayList();
-        id =0;
         try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Courses.txt"))) {
             String inside;
             while ((inside = reader.readLine()) != null) {
                 System.out.println(inside);
-                String[] partsA = inside.split("\t");
+                String[] partsA = inside.split("\t\t");
                 c.add(new Courses(Integer.parseInt(partsA[0]), Integer.parseInt(partsA[1]), partsA[2], partsA[3], partsA[4]));
-                id++;
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
@@ -60,8 +57,11 @@ public class Courses_Interface {
         }
         System.out.print("Enter schedule : ");
         schedule = input3.nextLine();
-        c.add(new Courses(id, account_id-1, title, unit, schedule));
-        ++id;
+        if (c.isEmpty()) {
+            c.add(new Courses(1, account_id - 1, title, unit, schedule));
+        } else {
+            c.add(new Courses(c.get(c.size() - 1).getId() + 1, account_id, title, unit, schedule));
+        }
     }
 
     public void update(int acc_id) {
@@ -92,7 +92,7 @@ public class Courses_Interface {
             String str;
             writer.flush();
             for (int i = 0; i < c.size(); i++) {
-                str = c.get(i).getId() + "\t" + c.get(i).getAccount_id() + "\t" + c.get(i).getTitle() + "\t" + c.get(i).getUnit() + "\t" + c.get(i).getSchedule();
+                str = c.get(i).getId() + "\t\t" + c.get(i).getAccount_id() + "\t\t" + c.get(i).getTitle() + "\t\t" + c.get(i).getUnit() + "\t\t" + c.get(i).getSchedule();
                 writer.write(str);
                 writer.newLine();
             }
@@ -105,6 +105,7 @@ public class Courses_Interface {
         for (int i = 0; i < c.size(); i++) {
             if (c.get(i).getAccount_id() == acc_id) {
                 c.remove(i);
+                System.out.println("Account ID " + acc_id + " in Courses has been deleted!");
             }
         }
     }
