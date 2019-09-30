@@ -87,45 +87,4 @@ public class Courses {
         this.account_id = account_id;
     }
 
-
-    public void addTitle() throws IOException {
-        System.out.print("Enter title/subject : ");
-        title = input.nextLine();
-    }
-
-    void addUnits() throws IOException {
-        System.out.print("Enter units : ");
-        unit = input1.nextLine();
-        while (Check.isString(unit)) {
-            System.out.println("Units is not s string.");
-            addUnits();
-        }
-    }
-
-    public void addSchedule() throws IOException {
-        System.out.print("Enter schedule : ");
-        schedule = input2.nextLine();
-    }
-
-    public void save() throws IOException {
-        
-        try (BufferedWriter writer = new BufferedWriter(
-                    new FileWriter("C:\\Users\\morrejo_sd2023\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Courses.txt", true))){
-            String str = id + "\t" + account_id + "\t" + title + "\t" + unit + "\t" + schedule;
-            writer.write(str);
-            writer.newLine();
-            ++id;
-        } catch (Exception ex) {
-            System.out.println("File not found.");
-        }
-    }
-
-    public void run() throws IOException {
-        System.out.println("--- Step 3 ---");
-        addTitle();
-        addUnits();
-        addSchedule();
-        save();
-    }
-
 }

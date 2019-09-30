@@ -45,7 +45,7 @@ public class Personal_Information_Interface {
         }
     }
 
-    public void create() throws IOException, PasswordException {
+    public void create() throws IOException {
         String fname, lname, age;
         System.out.print("Enter first name : ");
         fname = input1.nextLine();
@@ -72,11 +72,13 @@ public class Personal_Information_Interface {
         }
     }
 
-    public void update(int acc_id) {
-        String fname, lname, age;
+    public void update(int acc_id) throws IOException {
+        String fname = null, lname = null, age = null;
         for (int i = 0; i < pi.size(); i++) {
             if (pi.get(i).getAccount_id() == acc_id) {
-                System.out.print("Enter new first name : ");
+                System.out.println("\t\t    *** Personal Information ***");
+                System.out.println(pi.get(i).getId() + "\t" + pi.get(i).getAccount_id() + "\t" + pi.get(i).getFname() + "\t" + pi.get(i).getLname() + "\t" + pi.get(i).getAge());
+                System.out.print("\nEnter new first name : ");
                 fname = input1.next();
                 while (!Check.isString(fname)) {
                     System.out.println("First name does not contain any number.");
@@ -97,6 +99,10 @@ public class Personal_Information_Interface {
                 pi.get(i).setFname(fname);
                 pi.get(i).setLname(lname);
                 pi.get(i).setAge(age);
+            } else if (pi.get(i).getAccount_id() != acc_id && i == pi.size() - 1 && fname == null && lname == null && age == null) {
+                create();
+                pi.get(i).setAccount_id(acc_id);
+                break;
             }
         }
 
@@ -107,8 +113,8 @@ public class Personal_Information_Interface {
                 new FileWriter("C:\\Users\\2ndyrGroupC\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts_Personal_Information.txt"))) {
             String str;
             writer.flush();
-            for (int i = 0; i < pi.size(); i++) {
-                str = pi.get(i).getId() + "\t\t" + pi.get(i).getAccount_id() + "\t\t" + pi.get(i).getFname() + "\t\t" + pi.get(i).getLname() + "\t\t" + pi.get(i).getAge();
+            for (PersonalInformation pi1 : pi) {
+                str = pi1.getId() + "\t\t" + pi1.getAccount_id() + "\t\t" + pi1.getFname() + "\t\t" + pi1.getLname() + "\t\t" + pi1.getAge();
                 writer.write(str);
                 writer.newLine();
             }
@@ -117,20 +123,28 @@ public class Personal_Information_Interface {
         }
     }
 
+    
     public void delete(int acc_id) {
+        boolean con = false;
         for (int i = 0; i < pi.size(); i++) {
-            if (pi.get(i).getAccount_id() == acc_id) {
+            System.out.println(pi.get(i).getAccount_id());
+            if (pi.get(i).getAccount_id() == acc_id && con == false) {
                 pi.remove(i);
                 System.out.println("Account ID " + acc_id + " in Personal Information has been deleted!");
+                con = true;
+            }
+            if (con == true && i < pi.size()-1) {
+                pi.get(i).setId(pi.get(i).getId()-1);
+            }
+            if (i == pi.size() - 2 && con == true) {
+                break;
             }
         }
     }
 
     public void search(int acc_id) {
-        for (int i = 0; i < pi.size(); i++) {
-            if (pi.get(i).getAccount_id() == acc_id) {
-                System.out.println(pi.get(i).getId() + "\t" + pi.get(i).getAccount_id() + "\t" + pi.get(i).getFname() + "\t" + pi.get(i).getLname() + "\t" + pi.get(i).getAge());
-            }
-        }
+        pi.stream().filter((pi1) -> (pi1.getAccount_id() == acc_id)).forEach((pi1) -> {
+            System.out.println(pi1.getId() + "\t" + pi1.getAccount_id() + "\t" + pi1.getFname() + "\t" + pi1.getLname() + "\t" + pi1.getAge());
+        });
     }
 }

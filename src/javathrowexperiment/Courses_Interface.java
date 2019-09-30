@@ -31,7 +31,7 @@ public class Courses_Interface {
     }
 
     public void retrieve() throws IOException {
-        System.out.println("\n\t\t\t *** Courses ***");
+        System.out.println("\n\t\t\t *** Schedules ***");
         c = new ArrayList();
         try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Courses.txt"))) {
             String inside;
@@ -45,14 +45,14 @@ public class Courses_Interface {
         }
     }
 
-    public void create() throws IOException, PasswordException {
+    public void create() throws IOException {
         String title, unit, schedule;
         System.out.print("Enter title/subject : ");
         title = input1.nextLine();
         System.out.print("Enter units : ");
         unit = input2.nextLine();
         while (Check.isString(unit)) {
-            System.out.println("Units is not s string.");
+            System.out.println("Units is not a string.");
             create();
         }
         System.out.print("Enter schedule : ");
@@ -64,11 +64,13 @@ public class Courses_Interface {
         }
     }
 
-    public void update(int acc_id) {
-        String title, unit, schedule;
+    public void update(int acc_id) throws IOException {
+        String title = null, unit = null, schedule = null;
         for (int i = 0; i < c.size(); i++) {
             if (c.get(i).getAccount_id() == acc_id) {
-                System.out.print("Enter new title/subject : ");
+                System.out.println("\t\t\t*** Schedules ***");
+                System.out.println(c.get(i).getId() + "\t" + c.get(i).getAccount_id() + "\t" + c.get(i).getTitle() + "\t" + c.get(i).getUnit() + "\t" + c.get(i).getSchedule());
+                System.out.print("\nEnter new title/subject : ");
                 title = input1.nextLine();
                 System.out.print("Enter new units : ");
                 unit = input2.nextLine();
@@ -81,6 +83,10 @@ public class Courses_Interface {
                 c.get(i).setTitle(title);
                 c.get(i).setUnit(unit);
                 c.get(i).setSchedule(schedule);
+            } else if (c.get(i).getAccount_id() != acc_id && i == c.size() - 1 && title == null && unit == null && schedule == null) {
+                create();
+                c.get(i).setAccount_id(acc_id);
+                break;
             }
         }
 
@@ -91,8 +97,8 @@ public class Courses_Interface {
                 new FileWriter("C:\\Users\\2ndyrGroupC\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Courses.txt"))) {
             String str;
             writer.flush();
-            for (int i = 0; i < c.size(); i++) {
-                str = c.get(i).getId() + "\t\t" + c.get(i).getAccount_id() + "\t\t" + c.get(i).getTitle() + "\t\t" + c.get(i).getUnit() + "\t\t" + c.get(i).getSchedule();
+            for (Courses c1 : c) {
+                str = c1.getId() + "\t\t" + c1.getAccount_id() + "\t\t" + c1.getTitle() + "\t\t" + c1.getUnit() + "\t\t" + c1.getSchedule();
                 writer.write(str);
                 writer.newLine();
             }
@@ -102,19 +108,23 @@ public class Courses_Interface {
     }
 
     public void delete(int acc_id) {
+        boolean con = false;
         for (int i = 0; i < c.size(); i++) {
-            if (c.get(i).getAccount_id() == acc_id) {
+            if (c.get(i).getAccount_id() == acc_id && con == false) {
                 c.remove(i);
-                System.out.println("Account ID " + acc_id + " in Courses has been deleted!");
+                System.out.println("Account ID " + acc_id + " in Schedules has been deleted!");
+                con = true;
+            } if (con == true && i < c.size()-1) {
+                c.get(i).setId(c.get(i).getId()-1);
+            }if (i == c.size()-2 && con == true) {
+                break;
             }
         }
     }
 
     public void search(int acc_id) {
-        for (int i = 0; i < c.size(); i++) {
-            if (c.get(i).getAccount_id() == acc_id) {
-                System.out.println(c.get(i).getId() + "\t" + c.get(i).getAccount_id() + "\t" + c.get(i).getTitle() + "\t" + c.get(i).getUnit() + "\t" + c.get(i).getSchedule());
-            }
-        }
+        c.stream().filter((c1) -> (c1.getAccount_id() == acc_id)).forEach((c1) -> {
+            System.out.println(c1.getId() + "\t" + c1.getAccount_id() + "\t" + c1.getTitle() + "\t" + c1.getUnit() + "\t" + c1.getSchedule());
+        });
     }
 }

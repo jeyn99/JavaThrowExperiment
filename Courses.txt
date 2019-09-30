@@ -1,2 +1,1 @@
-1		2		Java		3		Mon, Fir
-2		3		Accounting		4		Mond
+2		1		Math		1		Monday

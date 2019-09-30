@@ -6,6 +6,7 @@
 package javathrowexperiment;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -21,9 +22,12 @@ public class JavaThrowExperiment {
         Scanner input1 = new Scanner(System.in);
         Scanner input2 = new Scanner(System.in);
         Scanner input3 = new Scanner(System.in);
+        Scanner input4 = new Scanner(System.in);
+        Scanner input5 = new Scanner(System.in);
         boolean exit = false;
 
         while (exit == false) {
+
             System.out.println("\n***** CHOICES *****");
             System.out.println("c -- create\nr -- retrieve\nu -- update\nd -- delete\ns -- save\nf -- search\ne -- exit");
             System.out.print("Choice : ");
@@ -55,19 +59,34 @@ public class JavaThrowExperiment {
                     ci.retrieve();
                     break;
                 case "u":
-                    System.out.println("\n--- UPDATE ---");
-                    System.out.print("Account ID :");
-                    int choice6 = input2.nextInt();
-                    pi.update(choice6);
-                    ci.update(choice6);
+                    try {
+                        System.out.println("\n--- UPDATE ---");
+                        System.out.print("Account ID :");
+                        int choice6 = input2.nextInt();
+                        pi.update(choice6);
+                        while (true) {
+                            System.out.print("Do you want to update courses (y/n) ? ");
+                            String choice8 = input5.next();
+                            if ("y".equals(choice8)) {
+                                ci.update(choice6);
+                            } else {
+                                break;
+                            }
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Mismatch input.");
+                    }
                     break;
                 case "d":
-                    System.out.println("\n--- DELETE ---");
-                    System.out.print("Account ID :");
-                    int choice2 = input2.nextInt();
-                    ai.delete(choice2);
-                    pi.delete(choice2);
-                    ci.delete(choice2);
+                    try {
+                        System.out.println("\n--- DELETE ---");
+                        System.out.print("Account ID :");
+                        int choice2 = input4.nextInt();
+                        pi.delete(choice2);
+                        ci.delete(choice2);
+                    } catch (InputMismatchException e) {
+                        System.out.println("Mismatch input.");
+                    }
                     break;
                 case "s":
                     System.out.println("\n--- SAVE ---");
@@ -76,17 +95,22 @@ public class JavaThrowExperiment {
                     ci.save();
                     break;
                 case "f":
-                    System.out.println("\n--- SEARCH ---");
-                    System.out.print("Account ID :");
-                    int choice3 = input3.nextInt();
-                    ai.search(choice3);
-                    pi.search(choice3);
-                    ci.search(choice3);
+                    try {
+                        System.out.println("\n--- SEARCH ---");
+                        System.out.print("Account ID :");
+                        int choice3 = input3.nextInt();
+                        ai.search(choice3);
+                        pi.search(choice3);
+                        ci.search(choice3);
+                    } catch (InputMismatchException e) {
+                        System.out.println("Mismatch input.");
+                    }
                     break;
                 case "e":
                     exit = true;
                     break;
             }
+
         }
     }
 

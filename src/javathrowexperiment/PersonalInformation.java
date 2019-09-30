@@ -6,13 +6,10 @@
 package javathrowexperiment;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -89,57 +86,6 @@ public class PersonalInformation {
 
     public void setAccount_id(int account_id) {
         this.account_id = account_id;
-    }
-
-    void addFName() throws IOException {
-
-        System.out.print("Enter first name : ");
-        fname = input.nextLine();
-        while (!Check.isString(fname)) {
-            System.out.println("First name does not contain any number.");
-            addFName();
-        }
-    }
-
-    void addLName() throws IOException {
-        System.out.print("Enter last name : ");
-        lname = input1.nextLine();
-        while (!Check.isString(lname)) {
-            System.out.println("Last name does not contain any number.");
-            addLName();
-        }
-    }
-
-    void addAge() throws IOException {
-        System.out.print("Enter age : ");
-        age = input2.next();
-        while (Check.isString(age)) {
-            System.out.println("Age is not a string.");
-            addAge();
-        }
-    }
-
-    public void save()
-            throws IOException {
-        
-        try (BufferedWriter writer = new BufferedWriter(
-                    new FileWriter("C:\\Users\\morrejo_sd2023\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts_Personal_Information.txt", true))){
-            String str = Integer.toString(id) + "\t" + Integer.toString(account_id) + "\t" + fname + "\t" + lname + "\t" + age;
-            writer.write(str);
-            writer.newLine();
-            ++id;
-        } catch (Exception ex) {
-            System.out.println("File not found.");
-        }
-    }
-
-    public void run() throws IOException {
-        System.out.println("--- Step 2 ---");
-        addFName();
-        addLName();
-        addAge();
-        save();
-    }
-    
+    }    
     
 }
