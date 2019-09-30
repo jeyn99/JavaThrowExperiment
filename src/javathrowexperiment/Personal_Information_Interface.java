@@ -100,8 +100,29 @@ public class Personal_Information_Interface {
                 pi.get(i).setLname(lname);
                 pi.get(i).setAge(age);
             } else if (pi.get(i).getAccount_id() != acc_id && i == pi.size() - 1 && fname == null && lname == null && age == null) {
-                create();
-                pi.get(i).setAccount_id(acc_id);
+                System.out.print("Enter first name : ");
+                fname = input1.nextLine();
+                while (!Check.isString(fname)) {
+                    System.out.println("First name does not contain any number.");
+                    update(acc_id);
+                }
+                System.out.print("Enter last name : ");
+                lname = input2.nextLine();
+                while (!Check.isString(lname)) {
+                    System.out.println("Last name does not contain any number.");
+                    update(acc_id);
+                }
+                System.out.print("Enter age : ");
+                age = input3.nextLine();
+                while (Check.isString(age)) {
+                    System.out.println("Age is not a string.");
+                    update(acc_id);
+                }
+                if (pi.isEmpty()) {
+                    pi.add(new PersonalInformation(1, acc_id, fname, lname, age));
+                } else {
+                    pi.add(new PersonalInformation(pi.get(pi.size() - 1).getId() + 1, acc_id, fname, lname, age));
+                }
                 break;
             }
         }
@@ -123,20 +144,18 @@ public class Personal_Information_Interface {
         }
     }
 
-    
     public void delete(int acc_id) {
-        boolean con = false;
         for (int i = 0; i < pi.size(); i++) {
-            System.out.println(pi.get(i).getAccount_id());
-            if (pi.get(i).getAccount_id() == acc_id && con == false) {
+            if (pi.get(i).getAccount_id() == acc_id) {
                 pi.remove(i);
                 System.out.println("Account ID " + acc_id + " in Personal Information has been deleted!");
-                con = true;
             }
-            if (con == true && i < pi.size()-1) {
-                pi.get(i).setId(pi.get(i).getId()-1);
+        }
+        for (int i = 0; i < pi.size(); i++) {
+            if (pi.get(i).getId() != i) {
+                pi.get(i).setId(i + 1);
             }
-            if (i == pi.size() - 2 && con == true) {
+            if (i == pi.size() - 1) {
                 break;
             }
         }
