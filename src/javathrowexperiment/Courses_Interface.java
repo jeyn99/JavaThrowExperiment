@@ -64,7 +64,7 @@ public class Courses_Interface {
         }
     }
 
-    public void update(int acc_id) throws IOException {
+   public void update(int acc_id) throws IOException {
         String title = null, unit = null, schedule = null;
         for (int i = 0; i < c.size(); i++) {
             if (c.get(i).getAccount_id() == acc_id) {
@@ -84,14 +84,27 @@ public class Courses_Interface {
                 c.get(i).setUnit(unit);
                 c.get(i).setSchedule(schedule);
             } else if (c.get(i).getAccount_id() != acc_id && i == c.size() - 1 && title == null && unit == null && schedule == null) {
-                create();
-                c.get(i).setAccount_id(acc_id);
+                System.out.print("Enter title/subject : ");
+                title = input1.nextLine();
+                System.out.print("Enter units : ");
+                unit = input2.nextLine();
+                while (Check.isString(unit)) {
+                    System.out.println("Units is not a string.");
+                    update(acc_id);
+                }
+                System.out.print("Enter schedule : ");
+                schedule = input3.nextLine();
+                if (c.isEmpty()) {
+                    c.add(new Courses(1, acc_id, title, unit, schedule));
+                } else {
+                    c.add(new Courses(c.get(c.size() - 1).getId() + 1, acc_id, title, unit, schedule));
+                }
                 break;
             }
         }
 
     }
-
+    
     public void save() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(
                 new FileWriter("C:\\Users\\2ndyrGroupC\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Courses.txt"))) {
@@ -108,15 +121,17 @@ public class Courses_Interface {
     }
 
     public void delete(int acc_id) {
-        boolean con = false;
         for (int i = 0; i < c.size(); i++) {
-            if (c.get(i).getAccount_id() == acc_id && con == false) {
+            if (c.get(i).getAccount_id() == acc_id) {
                 c.remove(i);
                 System.out.println("Account ID " + acc_id + " in Schedules has been deleted!");
-                con = true;
-            } if (con == true && i < c.size()-1) {
-                c.get(i).setId(c.get(i).getId()-1);
-            }if (i == c.size()-2 && con == true) {
+            }
+        }
+        for (int i = 0; i < c.size(); i++) {
+            if (c.get(i).getId() != i) {
+                c.get(i).setId(i + 1);
+            }
+            if (i == c.size() - 1) {
                 break;
             }
         }
