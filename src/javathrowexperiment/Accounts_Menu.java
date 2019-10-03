@@ -12,7 +12,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import static java.util.Objects.hash;
 import java.util.Scanner;
 import static javathrowexperiment.Accounts.account_id;
 
@@ -20,20 +19,20 @@ import static javathrowexperiment.Accounts.account_id;
  *
  * @author morrejo_sd2023
  */
-public class Accounts_Interface {
+public class Accounts_Menu {
 
     ArrayList<Accounts> a;
     Scanner input1 = new Scanner(System.in);
     Scanner input2 = new Scanner(System.in);
     Scanner input3 = new Scanner(System.in);
 
-    public Accounts_Interface() {
+    public Accounts_Menu() {
         a = new ArrayList();
     }
 
     public void retrieve() throws IOException {
-        System.out.println("--- RETRIEVE ---");
-        System.out.println("\n\t\t\t*** Accounts ***");
+        System.out.println("Retrieve : ");
+        System.out.println("\n\t\t\t*** Your Account ***");
         a = new ArrayList();
         try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts.txt"))) {
             String inside;
@@ -43,26 +42,26 @@ public class Accounts_Interface {
                 a.add(new Accounts(Integer.parseInt(partsA[0]), partsA[1], partsA[2]));
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
+            System.out.println("No file has found!!!");
         }
     }
 
     public void create() throws IOException, PasswordException {
         String username, password, confirm;
-        System.out.print("\n--- CREATE ---\nEnter username : ");
+        System.out.print("\n CREATE \nUSERNAME : ");
         username = input1.next();
         while (!Check.isString(username)) {
-            System.out.println("Username containing all number.");
+            System.out.println("ERROR! your username is all numbers!");
             create();
         }
         while (true) {
             try {
-                System.out.print("Enter password : ");
+                System.out.print("PASSWORD : ");
                 password = input1.next();
                 if (password.length() >= 8) {
                     break;
                 } else {
-                    throw new PasswordException("Password too short.");
+                    throw new PasswordException("Password is not enough... your password is too short...");
                 }
             } catch (PasswordException ex) {
                 System.out.println(ex);
@@ -70,12 +69,12 @@ public class Accounts_Interface {
         }
         while (true) {
             try {
-                System.out.print("Re-enter password : ");
+                System.out.print("Verify password : ");
                 confirm = input2.next();
                 if (confirm == null ? password == null : confirm.equals(password)) {
                     break;
                 } else {
-                    throw new PasswordException("Password mismatch.");
+                    throw new PasswordException("Password is not the same.");
                 }
             } catch (PasswordException ex) {
                 System.out.println(ex);
@@ -95,13 +94,13 @@ public class Accounts_Interface {
                 new FileWriter("C:\\Users\\2ndyrGroupC\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts.txt"))) {
             String str;
             writer.flush();
-            for (int i = 0; i < a.size(); i++) {
-                str = a.get(i).getAcc_id() + "\t\t" + a.get(i).getUsername() + "\t\t" + hash(a.get(i).getPassword().toCharArray());
+            for (Accounts a1 : a) {
+                str = a1.getAcc_id() + "\t\t" + a1.getUsername() + "\t\t" + a1.getPassword();
                 writer.write(str);
                 writer.newLine();
             }
         } catch (Exception ex) {
-            System.out.println("File not found.");
+            System.out.println("No file has found!!!");
         }
     }
 

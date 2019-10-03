@@ -21,12 +21,12 @@ public class PersonalInformation {
     Scanner input = new Scanner(System.in);
     Scanner input1 = new Scanner(System.in);
     Scanner input2 = new Scanner(System.in);
-    private String fname;
-    private String lname;
+    private String firstname;
+    private String lastname;
     private String age;
     private int id = 1;
     private int account_id = Accounts.account_id - 1;
-    ArrayList<PersonalInformation> pi;
+    ArrayList<PersonalInformation> personal_informations;
 
     PersonalInformation() throws FileNotFoundException, IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\morrejo_sd2023\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts_Personal_Information.txt"))) {
@@ -36,32 +36,32 @@ public class PersonalInformation {
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
         }
-        pi = new ArrayList();
+        personal_informations = new ArrayList();
     }
     
     public PersonalInformation(int id, int ac, String fn, String ln, String age) {
         this.account_id = ac;
         this.id = id;
-        this.fname = fn;
-        this.lname = ln;
+        this.firstname = fn;
+        this.lastname = ln;
         this.age = age;
         
     }
 
-    public String getFname() {
-        return fname;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFname(String fname) {
-        this.fname = fname;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLname() {
-        return lname;
+    public String getLasName() {
+        return lastname;
     }
 
-    public void setLname(String lname) {
-        this.lname = lname;
+    public void setLastName(String lname) {
+        this.lastname = lname;
     }
 
     public String getAge() {

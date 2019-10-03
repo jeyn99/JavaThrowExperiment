@@ -23,7 +23,7 @@ public class Courses {
     Scanner input1 = new Scanner(System.in);
     Scanner input2 = new Scanner(System.in);
     Scanner input3 = new Scanner(System.in);
-    private String title;
+    private String subjectName;
     private String unit;
     private String schedule;
     private int id = 1;
@@ -42,17 +42,17 @@ public class Courses {
     public Courses(int id, int ac, String title, String unit, String sc) {
         this.id = id;
         this.account_id = ac;
-        this.title = title;
+        this.subjectName = title;
         this.schedule = sc;
         this.unit = unit;
     }
 
-    public String getTitle() {
-        return title;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
     public String getUnit() {

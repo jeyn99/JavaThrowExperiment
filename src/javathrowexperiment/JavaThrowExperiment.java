@@ -16,9 +16,9 @@ import java.util.Scanner;
 public class JavaThrowExperiment {
 
     public static void main(String args[]) throws IOException, PasswordException {
-        Accounts_Interface ai = new Accounts_Interface();
-        Personal_Information_Interface pi = new Personal_Information_Interface();
-        Courses_Interface ci = new Courses_Interface();
+        Accounts_Menu ai = new Accounts_Menu();
+        Personal_Information_Menu pi = new Personal_Information_Menu();
+        Courses_Menu ci = new Courses_Menu();
         Scanner input1 = new Scanner(System.in);
         Scanner input2 = new Scanner(System.in);
         Scanner input3 = new Scanner(System.in);

@@ -26,7 +26,7 @@ public class Accounts {
     private String confirm;
     static int account_id = 1;
     private int acc_id;
-    ArrayList<Accounts> a;
+    ArrayList<Accounts> account_lists;
 
     Accounts() throws FileNotFoundException, IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\morrejo_sd2023\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts.txt"))) {
@@ -36,7 +36,7 @@ public class Accounts {
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
         }
-        a = new ArrayList();
+        account_lists = new ArrayList();
     }
 
     public Accounts(int id, String username, String password) {
@@ -71,7 +71,7 @@ public class Accounts {
 
     @Override
     public String toString() {
-        return "Accounts{"+"accountID="+ account_id + ", username=" + username + ", password=" + password + '}';
+        return String.format("%s\t%s\t%s\n",String.valueOf(account_id),username , password);
     }
 
 
