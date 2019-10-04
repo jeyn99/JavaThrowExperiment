@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javathrowexperiment;
+package FileExprement;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,28 +13,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import static javathrowexperiment.Accounts.account_id;
+import static FileExprement.Accounts.account_id;
 
 /**
  *
- * @author morrejo_sd2023
+ * @author repolloja_sd2023
  */
-public class Accounts_Menu {
+public class AccountMenu {
 
     ArrayList<Accounts> a;
-    Scanner input1 = new Scanner(System.in);
-    Scanner input2 = new Scanner(System.in);
-    Scanner input3 = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
 
-    public Accounts_Menu() {
+    public AccountMenu() {
         a = new ArrayList();
     }
 
     public void retrieve() throws IOException {
         System.out.println("Retrieve : ");
-        System.out.println("\n\t\t\t*** Your Account ***");
+        System.out.println("\n\t\t\tAccounts");
         a = new ArrayList();
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\repolloja_sd2023\\Desktop\\JavaThrowExperiment\\Accounts.txt"))) {
             String inside;
             while ((inside = reader.readLine()) != null) {
                 System.out.println(inside);
@@ -48,20 +46,20 @@ public class Accounts_Menu {
 
     public void create() throws IOException, PasswordException {
         String username, password, confirm;
-        System.out.print("\n CREATE \nUSERNAME : ");
-        username = input1.next();
+        System.out.print("\nCREATE \nUsername : ");
+        username = input.next();
         while (!Check.isString(username)) {
-            System.out.println("ERROR! your username is all numbers!");
+            System.out.println("Invalid format!");
             create();
         }
         while (true) {
             try {
-                System.out.print("PASSWORD : ");
-                password = input1.next();
+                System.out.print("Password : ");
+                password = input.next();
                 if (password.length() >= 8) {
                     break;
                 } else {
-                    throw new PasswordException("Password is not enough... your password is too short...");
+                    throw new PasswordException("Password too short!");
                 }
             } catch (PasswordException ex) {
                 System.out.println(ex);
@@ -69,12 +67,12 @@ public class Accounts_Menu {
         }
         while (true) {
             try {
-                System.out.print("Verify password : ");
-                confirm = input2.next();
+                System.out.print("Confirm password : ");
+                confirm = input.next();
                 if (confirm == null ? password == null : confirm.equals(password)) {
                     break;
                 } else {
-                    throw new PasswordException("Password is not the same.");
+                    throw new PasswordException("Password doesn't match!");
                 }
             } catch (PasswordException ex) {
                 System.out.println(ex);
@@ -91,7 +89,7 @@ public class Accounts_Menu {
 
     public void save() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter("C:\\Users\\2ndyrGroupC\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts.txt"))) {
+                new FileWriter("C:\\Users\\repolloja_sd2023\\Desktop\\JavaThrowExperiment\\Accounts.txt"))) {
             String str;
             writer.flush();
             for (Accounts a1 : a) {

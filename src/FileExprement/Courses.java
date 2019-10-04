@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javathrowexperiment;
+package FileExprement;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,14 +15,11 @@ import java.util.Scanner;
 
 /**
  *
- * @author morrejo_sd2023
+ * @author repolloja_sd2023
  */
 public class Courses {
 
     Scanner input = new Scanner(System.in);
-    Scanner input1 = new Scanner(System.in);
-    Scanner input2 = new Scanner(System.in);
-    Scanner input3 = new Scanner(System.in);
     private String subjectName;
     private String unit;
     private String schedule;
@@ -30,7 +27,7 @@ public class Courses {
     private int account_id = Accounts.account_id - 1;
 
     Courses() throws FileNotFoundException, IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\morrejo_sd2023\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts_Personal_Information.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\repolloja_sd2023\\Desktop\\JavaThrowExperiment\\Courses.txt"))) {
             while (reader.readLine() != null) {
                 id++;
             }
@@ -39,13 +36,14 @@ public class Courses {
         }
     }
     
-    public Courses(int id, int ac, String title, String unit, String sc) {
+    public Courses(int id, int acc, String title, String unit, String sc) {
         this.id = id;
-        this.account_id = ac;
+        this.account_id = acc;
         this.subjectName = title;
         this.schedule = sc;
         this.unit = unit;
     }
+    
 
     public String getSubjectName() {
         return subjectName;

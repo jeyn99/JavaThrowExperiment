@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javathrowexperiment;
+package FileExprement;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -19,19 +19,17 @@ import java.util.Scanner;
 public class PersonalInformation {
 
     Scanner input = new Scanner(System.in);
-    Scanner input1 = new Scanner(System.in);
-    Scanner input2 = new Scanner(System.in);
     private String firstname;
     private String lastname;
     private String age;
     private int id = 1;
-    private int account_id = Accounts.account_id - 1;
+    private int account_id = Accounts.account_id -1;
     ArrayList<PersonalInformation> personal_informations;
 
     PersonalInformation() throws FileNotFoundException, IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\morrejo_sd2023\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts_Personal_Information.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\repolloja_sd2023\\Desktop\\JavaThrowExperiment\\PersonalInfo.txt"))) {
             while (reader.readLine() != null) {
-                id++;
+                id +=1;
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
@@ -39,8 +37,8 @@ public class PersonalInformation {
         personal_informations = new ArrayList();
     }
     
-    public PersonalInformation(int id, int ac, String fn, String ln, String age) {
-        this.account_id = ac;
+    public PersonalInformation(int id, int acc, String fn, String ln, String age) {
+        this.account_id = acc;
         this.id = id;
         this.firstname = fn;
         this.lastname = ln;

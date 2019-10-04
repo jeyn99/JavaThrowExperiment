@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javathrowexperiment;
+package FileExprement;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,13 +14,9 @@ import java.util.Scanner;
 
 /**
  *
- * @author morrejo_sd2023
+ * @author repolloja_sd2023
  */
 public class Accounts {
-
-    Scanner input = new Scanner(System.in);
-    Scanner input1 = new Scanner(System.in);
-    Scanner input2 = new Scanner(System.in);
     private String username;
     private String password;
     private String confirm;
@@ -29,9 +25,9 @@ public class Accounts {
     ArrayList<Accounts> account_lists;
 
     Accounts() throws FileNotFoundException, IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\morrejo_sd2023\\Documents\\NetBeansProjects\\JavaThrowExperiment\\Accounts.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\repolloja_sd2023\\Desktop\\JavaThrowExperiment\\Accounts.txt"))) {
             while (reader.readLine() != null) {
-                account_id++;
+                ++account_id;
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");

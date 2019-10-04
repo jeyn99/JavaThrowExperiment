@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javathrowexperiment;
+package FileExprement;
 
 /**
  *
- * @author 2ndyrGroupC
+ * @author repolloja_sd2023
  */
 public class Check {
 

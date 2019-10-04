@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javathrowexperiment;
+package FileExprement;
 
 /**
  *
  * @author 2ndyrGroupC
  */
 class PasswordException extends Exception{
-    public PasswordException(String pass) {
-        super(pass);
+    public PasswordException(String str) {
+        super(str);
     }
 }
