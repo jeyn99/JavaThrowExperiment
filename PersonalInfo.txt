@@ -1,3 +1,2 @@
 1		1		Jisoo		Repollo		34
 2		2		Jane		Repollo		34
-3		3		Jane		Tulisana		23
