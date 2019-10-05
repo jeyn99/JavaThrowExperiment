@@ -64,23 +64,30 @@ public class FileExperimentMain {
                         System.out.println("\nUPDATE");
                         System.out.print("Account ID :");
                         int id = input.nextInt();
-                        while (true) {
+                        while (account.checkIDin(id)) {
                             System.out.print("ADD Personal info? (y/n): ");
                             String answ = input.next();
                             if ("y".equals(answ)) {
-                                info.update(id);
-
-                            } else {
+                                if(info.pi.isEmpty()) {
+                                    info.create();
+                                } else {
+                                    info.update(id);
+                                }
+                            } else {                
                                 break;
                             }
                         }
-                        while(true) {
+                        while (account.checkIDin(id)) {
                             System.out.print("ADD COURSES? (y/n): ");
                             String answ = input.next();
                             if ("y".equals(answ)) {
-                                course.update(id);
+                                if (course.c.isEmpty()) {
+                                    course.create();
+                                } else {
+                                    course.update(id);
 
-                            } else {
+                                }
+                            } else {                               
                                 break;
                             }
                         }

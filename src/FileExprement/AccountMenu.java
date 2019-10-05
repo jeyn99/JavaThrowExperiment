@@ -27,12 +27,13 @@ public class AccountMenu {
     public AccountMenu() {
         a = new ArrayList();
     }
+    
 
     public void retrieve() throws IOException {
         System.out.println("Retrieve : ");
         System.out.println("\n\t\t\tAccounts");
         a = new ArrayList();
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\repolloja_sd2023\\Desktop\\JavaThrowExperiment\\Accounts.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\Accounts.txt"))) {
             String inside;
             while ((inside = reader.readLine()) != null) {
                 System.out.println(inside);
@@ -40,8 +41,18 @@ public class AccountMenu {
                 a.add(new Accounts(Integer.parseInt(partsA[0]), partsA[1], partsA[2]));
             }
         } catch (FileNotFoundException e) {
-            System.out.println("No file has found!!!");
+            System.out.println("File not found!");
         }
+    }
+    
+    public boolean checkIDin(int id) {
+        boolean checker = false;
+        for (int i = 0; i < a.size(); i++) {
+            if(a.get(i).getAcc_id() == id) {
+                checker = true;
+            }
+        }
+        return checker;
     }
 
     public void create() throws IOException, PasswordException {
@@ -89,7 +100,7 @@ public class AccountMenu {
 
     public void save() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter("C:\\Users\\repolloja_sd2023\\Desktop\\JavaThrowExperiment\\Accounts.txt"))) {
+                new FileWriter("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\Accounts.txt"))) {
             String str;
             writer.flush();
             for (Accounts a1 : a) {

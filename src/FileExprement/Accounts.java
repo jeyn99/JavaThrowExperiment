@@ -17,6 +17,7 @@ import java.util.Scanner;
  * @author repolloja_sd2023
  */
 public class Accounts {
+    Scanner input = new Scanner(System.in);
     private String username;
     private String password;
     private String confirm;
@@ -25,7 +26,7 @@ public class Accounts {
     ArrayList<Accounts> account_lists;
 
     Accounts() throws FileNotFoundException, IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\repolloja_sd2023\\Desktop\\JavaThrowExperiment\\Accounts.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\Accounts.txt"))) {
             while (reader.readLine() != null) {
                 ++account_id;
             }
@@ -64,6 +65,7 @@ public class Accounts {
     public void setAcc_id(int acc_id) {
         this.acc_id = acc_id;
     }
+    
 
     @Override
     public String toString() {

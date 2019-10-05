@@ -27,7 +27,7 @@ public class Courses {
     private int account_id = Accounts.account_id - 1;
 
     Courses() throws FileNotFoundException, IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\repolloja_sd2023\\Desktop\\JavaThrowExperiment\\Courses.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\Courses.txt"))) {
             while (reader.readLine() != null) {
                 id++;
             }

@@ -27,7 +27,7 @@ public class PersonalInformation {
     ArrayList<PersonalInformation> personal_informations;
 
     PersonalInformation() throws FileNotFoundException, IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\repolloja_sd2023\\Desktop\\JavaThrowExperiment\\PersonalInfo.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\PersonalInfo.txt"))) {
             while (reader.readLine() != null) {
                 id +=1;
             }
