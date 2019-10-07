@@ -17,15 +17,14 @@ import static FileExprement.Accounts.account_id;
 
 /**
  *
- * @author morrejo_sd2023
+ * @author repolloja_sd2023
  */
 public class PersonalInfo {
 
+    static String regex = "^[-a-zA-Z .]+";
     ArrayList<PersonalInformation> pi;
-    Scanner input1 = new Scanner(System.in);
-    Scanner input2 = new Scanner(System.in);
-    Scanner input3 = new Scanner(System.in);
-    
+    Scanner input = new Scanner(System.in);
+    PersonalInformation info = new PersonalInformation();
 
     public PersonalInfo() {
         pi = new ArrayList();
@@ -34,7 +33,7 @@ public class PersonalInfo {
     public void retrieve() throws IOException {
         System.out.println("\n\t\tPersonal Information");
         pi = new ArrayList();
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\PersonalInfo.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Desktop\\JavaThrowExperiment\\PersonalInfo.txt"))) {
             String inside;
             while ((inside = reader.readLine()) != null) {
                 System.out.println(inside);
@@ -45,102 +44,78 @@ public class PersonalInfo {
             System.out.println("File not found!");
         }
     }
-    
 
     public void create() throws IOException {
-        String fname, lname, age;
-        System.out.print("Firstname: ");
-        fname = input1.nextLine();
-        while (!Check.isString(fname)) {
-            System.out.println("Invalid format.");
-            create();
-        }
-        System.out.print("Lastname : ");
-        lname = input2.nextLine();
-        while (!Check.isString(lname)) {
-            System.out.println("Invalid format.");
-            create();
-        }
-        System.out.print("Age : ");
-        age = input3.nextLine();
-        while (Check.isString(age)) {
-            System.out.println("Age is not a string.");
-            create();
-        }
+        validation();
         if (pi.isEmpty()) {
-            pi.add(new PersonalInformation(1, account_id, fname, lname, age));
+            pi.add(new PersonalInformation(1, account_id, info.getFirstname(), info.getLasName(), info.getAge()));
         } else {
-            pi.add(new PersonalInformation(pi.get(pi.size() - 1).getId() + 1, account_id, fname, lname, age));
+            pi.add(new PersonalInformation(pi.get(pi.size() - 1).getId() + 1, account_id, info.getFirstname(), info.getLasName(), info.getAge()));
         }
     }
-    
+
+    public void validation() {
+        boolean flag = true;
+        while (flag) {
+            System.out.print("Firstname: ");
+            String name = input.nextLine();
+            if (name.matches(regex)) {
+                info.setFirstname(name);
+                flag = false;
+            } else {
+                System.out.println("Invalid!\n");
+            }
+        }
+        flag = true;
+        while (flag) {
+            System.out.print("Lastname: ");
+            String name = input.nextLine();
+            if (name.matches(regex)) {
+                info.setLastName(name);
+                flag = false;
+            } else {
+                System.out.println("Invalid!\n");
+            }
+        }
+        flag = true;
+        while (flag) {
+            System.out.print("Age: ");
+            int age = input.nextInt();
+            info.setAge(String.valueOf(age));
+            break;
+        }
+    }
+
     public void create(int id) throws IOException {
-        String fname, lname, age;
-        System.out.print("Firstname: ");
-        fname = input1.nextLine();
-        while (!Check.isString(fname)) {
-            System.out.println("Invalid format.");
-            create();
-        }
-        System.out.print("Lastname : ");
-        lname = input2.nextLine();
-        while (!Check.isString(lname)) {
-            System.out.println("Invalid format.");
-            create();
-        }
-        System.out.print("Age : ");
-        age = input3.nextLine();
-        while (Check.isString(age)) {
-            System.out.println("Age is not a string.");
-            create();
-        }
+        validation();
         if (pi.isEmpty()) {
-            pi.add(new PersonalInformation(1, account_id, fname, lname, age));
+            pi.add(new PersonalInformation(1, account_id, info.getFirstname(), info.getLasName(), info.getAge()));
         } else {
-            pi.add(new PersonalInformation(pi.get(pi.size() - 1).getId() + 1, id, fname, lname, age));
+            pi.add(new PersonalInformation(pi.get(pi.size() - 1).getId() + 1, id, info.getFirstname(), info.getLasName(), info.getAge()));
         }
     }
-    
 
     public void update(int acc_id) throws IOException {
-        String fname = null, lname = null, age = null;
         boolean in = false;
         for (int i = 0; i < pi.size(); i++) {
             if (pi.get(i).getAccount_id() == acc_id) {
                 System.out.println("\t\tPersonal Information");
                 System.out.println(pi.get(i).getId() + "\t" + pi.get(i).getAccount_id() + "\t" + pi.get(i).getFirstname() + "\t" + pi.get(i).getLasName() + "\t" + pi.get(i).getAge());
-                System.out.print("\nFirstname : ");
-                fname = input1.next();
-                while (!Check.isString(fname)) {
-                    System.out.println("Invalid Format.");
-                    update(acc_id);
-                }
-                System.out.print("Lastname : ");
-                lname = input2.nextLine();
-                while (!Check.isString(lname)) {
-                    System.out.println("Invalid Format");
-                    update(acc_id);
-                }
-                System.out.print("Age : ");
-                age = input2.next();
-                while (Check.isString(age)) {
-                    System.out.println("Invalid format!");
-                    update(acc_id);
-                }
-                pi.get(i).setFirstname(fname);
-                pi.get(i).setLastName(lname);
-                pi.get(i).setAge(age);
+                validation();
+                pi.get(i).setFirstname(info.getFirstname());
+                pi.get(i).setLastName(info.getLasName());
+                pi.get(i).setAge(info.getAge());
                 in = true;
-            } 
+            }
         }
-        if(!in) {          
+        if (!in) {
             create(acc_id);
         }
     }
 
     public void save() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\PersonalInfo.txt"))) {
+                new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\JavaThrowExperiment\\PersonalInfo.txt"))) {
             String str;
             writer.flush();
             for (PersonalInformation pi1 : pi) {
@@ -175,4 +150,5 @@ public class PersonalInfo {
             System.out.println(pi1.getId() + "\t" + pi1.getAccount_id() + "\t" + pi1.getFirstname() + "\t" + pi1.getLasName() + "\t" + pi1.getAge());
         });
     }
+
 }

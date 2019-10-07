@@ -26,8 +26,12 @@ public class Courses {
     private int id = 1;
     private int account_id = Accounts.account_id - 1;
 
-    Courses() throws FileNotFoundException, IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\Courses.txt"))) {
+    public Courses() {
+    
+    }
+
+    public void Courses() throws FileNotFoundException, IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Desktop\\JavaThrowExperiment\\Courses.txt"))) {
             while (reader.readLine() != null) {
                 id++;
             }
@@ -35,7 +39,7 @@ public class Courses {
             System.out.println("File not found!");
         }
     }
-    
+
     public Courses(int id, int acc, String title, String unit, String sc) {
         this.id = id;
         this.account_id = acc;
@@ -43,7 +47,6 @@ public class Courses {
         this.schedule = sc;
         this.unit = unit;
     }
-    
 
     public String getSubjectName() {
         return subjectName;

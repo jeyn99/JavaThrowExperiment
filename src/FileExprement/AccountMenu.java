@@ -27,13 +27,12 @@ public class AccountMenu {
     public AccountMenu() {
         a = new ArrayList();
     }
-    
 
     public void retrieve() throws IOException {
         System.out.println("Retrieve : ");
         System.out.println("\n\t\t\tAccounts");
         a = new ArrayList();
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\Accounts.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Desktop\\JavaThrowExperiment\\Accounts.txt"))) {
             String inside;
             while ((inside = reader.readLine()) != null) {
                 System.out.println(inside);
@@ -44,63 +43,76 @@ public class AccountMenu {
             System.out.println("File not found!");
         }
     }
-    
+
     public boolean checkIDin(int id) {
         boolean checker = false;
         for (int i = 0; i < a.size(); i++) {
-            if(a.get(i).getAcc_id() == id) {
+            if (a.get(i).getAcc_id() == id) {
                 checker = true;
             }
         }
         return checker;
     }
 
+    public void validateName(String name) throws Exception {
+        if (name.length() < 1) {
+            throw new Exception();
+        } else if (name.length() >= 1) {
+            System.out.print("");
+        }
+    }
+
     public void create() throws IOException, PasswordException {
-        String username, password, confirm;
-        System.out.print("\nCREATE \nUsername : ");
-        username = input.next();
-        while (!Check.isString(username)) {
-            System.out.println("Invalid format!");
-            create();
-        }
-        while (true) {
+        String username = null, password = null, confirm;
+        boolean flag = true;
+        String user;
+        while (flag) {
+            System.out.print("Username: ");
+            user = input.nextLine();
             try {
-                System.out.print("Password : ");
-                password = input.next();
-                if (password.length() >= 8) {
-                    break;
-                } else {
-                    throw new PasswordException("Password too short!");
-                }
-            } catch (PasswordException ex) {
-                System.out.println(ex);
+                validateName(user);
+                int a = Integer.valueOf(user);
+            } catch (NumberFormatException e) {
+                username = (user);
+                break;
+            } catch (Exception e) {
+                System.out.println("Fill up name!");
             }
         }
-        while (true) {
-            try {
-                System.out.print("Confirm password : ");
-                confirm = input.next();
-                if (confirm == null ? password == null : confirm.equals(password)) {
-                    break;
-                } else {
-                    throw new PasswordException("Password doesn't match!");
+
+        flag = true;
+        while (flag) {
+            System.out.print("Password: ");
+            String pass = input.nextLine();
+            if (pass.length() < 8) {
+                System.out.println("Too Short!\n");
+            } else {
+                password = (pass);
+                while (true) {
+                    System.out.print("Confirm Password: ");
+                    String pw2 = input.nextLine();
+                    if (password.equals(pw2)) {
+                        System.out.println("Account Successfully created!");
+                        break;
+                    } else {
+                        System.out.println("Password doesn't match!");
+                    }
                 }
-            } catch (PasswordException ex) {
-                System.out.println(ex);
+                flag = false;
             }
         }
+        
         if (a.isEmpty()) {
             a.add(new Accounts(1, username, password));
-        }
-        else {
-            a.add(new Accounts(a.get(a.size()-1).getAcc_id()+1, username, password));
-            account_id = a.get(a.size()-1).getAcc_id();
+        } else {
+            a.add(new Accounts(a.get(a.size() - 1).getAcc_id() + 1, username, password));
+            account_id = a.get(a.size() - 1).getAcc_id();
         }
     }
 
     public void save() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\Accounts.txt"))) {
+                new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\JavaThrowExperiment\\Accounts.txt"))) {
             String str;
             writer.flush();
             for (Accounts a1 : a) {

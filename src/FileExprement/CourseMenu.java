@@ -22,9 +22,8 @@ import static FileExprement.Accounts.account_id;
 public class CourseMenu {
 
     ArrayList<Courses> c;
-    Scanner input1 = new Scanner(System.in);
-    Scanner input2 = new Scanner(System.in);
-    Scanner input3 = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
+    Courses course = new Courses();
 
     public CourseMenu() {
         c = new ArrayList();
@@ -33,7 +32,7 @@ public class CourseMenu {
     public void retrieve() throws IOException {
         System.out.println("\n\t\t\tSchedules");
         c = new ArrayList();
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\Courses.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\2ndyrGroupC\\Desktop\\JavaThrowExperiment\\Courses.txt"))) {
             String inside;
             while ((inside = reader.readLine()) != null) {
                 System.out.println(inside);
@@ -44,67 +43,60 @@ public class CourseMenu {
             System.out.println("File not found!");
         }
     }
+    
+    
+    
+    public void addSchedule() {
+        boolean flag = true;
+        System.out.print("Title: ");
+        String title = input.next();
+        course.setSubjectName(title);
+        System.out.print("Schedule: ");
+        String schedule = input.next();
+        course.setSchedule(schedule);
+        while (true) {
+            System.out.print("Units: ");
+            String units = input.next();
+            course.setUnit(units);
+            try {
+                int a = Integer.valueOf(units);
+                break;
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid");
+            }
+        }
+    }
+
 
     public void create() throws IOException {
-        String title, unit, schedule;
-        System.out.print("Title: ");
-        title = input1.nextLine();
-        System.out.print("Units : ");
-        unit = input2.nextLine();
-        while (Check.isString(unit)) {
-            System.out.println("Invalid Format!");
-            create();
-        }
-        System.out.print("Schedule : ");
-        schedule = input3.nextLine();
+        addSchedule();
         if (c.isEmpty()) {
-            c.add(new Courses(1, account_id, title, unit, schedule));
+            c.add(new Courses(1, account_id, course.getSubjectName(), course.getUnit(), course.getUnit()));
+        } else {
+            c.add(new Courses(c.size(), account_id, course.getSubjectName(), course.getUnit(), course.getUnit()));
         }
     }
     
     public void create(int id) throws IOException {
-        String title, unit, schedule;
-        System.out.print("Title: ");
-        title = input1.nextLine();
-        System.out.print("Units : ");
-        unit = input2.nextLine();
-        while (Check.isString(unit)) {
-            System.out.println("Invalid Format!");
-            create();
-        }
-        System.out.print("Schedule : ");
-        schedule = input3.nextLine();
+        addSchedule();
         if (c.isEmpty()) {
-            c.add(new Courses(1, id, title, unit, schedule));
+            c.add(new Courses(1, id, course.getSubjectName(), course.getUnit(), course.getSchedule()));
         } else {
-            c.add(new Courses(c.get(c.size() - 1).getId() + 1, id, title, unit, schedule));
+            c.add(new Courses(c.get(c.size() - 1).getId() + 1, id, course.getSubjectName(), course.getUnit(), course.getSchedule()));
         }
     }
-    
-    
-    
-    
+      
 
     public void update(int acc_id) throws IOException {
-        String title = null, unit = null, schedule = null;
         boolean in = false;
         for (int i = 0; i < c.size(); i++) {
             if (c.get(i).getAccount_id() == acc_id) {
                 System.out.println("\t\t\tSchedules");
                 System.out.println(c.get(i).getId() + "\t" + c.get(i).getAccount_id() + "\t" + c.get(i).getSubjectName() + "\t" + c.get(i).getUnit() + "\t" + c.get(i).getSchedule());
-                System.out.print("\nTitle : ");
-                title = input1.nextLine();
-                System.out.print("Units : ");
-                unit = input2.nextLine();
-                while (Check.isString(unit)) {
-                    System.out.println("Invalid Format!");
-                    update(acc_id);
-                }
-                System.out.print("Schedule : ");
-                schedule = input3.nextLine();
-                c.get(i).setSubjectName(title);
-                c.get(i).setUnit(unit);
-                c.get(i).setSchedule(schedule);
+                addSchedule();
+                c.get(i).setSubjectName(course.getSubjectName());
+                c.get(i).setUnit(course.getUnit());
+                c.get(i).setSchedule(course.getSchedule());
                 in = true;
             }
         }
@@ -116,7 +108,7 @@ public class CourseMenu {
 
     public void save() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter("C:\\Users\\2ndyrGroupC\\Documents\\JaneRepollo\\jyn\\JavaThrowExperiment\\Courses.txt"))) {
+                new FileWriter("C:\\Users\\2ndyrGroupC\\Desktop\\JavaThrowExperiment\\Courses.txt"))) {
             String str;
             writer.flush();
             for (Courses c1 : c) {

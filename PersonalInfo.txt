@@ -1,2 +1,2 @@
-1		1		Jisoo		Repollo		34
-2		2		Jane		Repollo		34
+1		2		Sharmen		Avila		23
+2		1		Jane		Repollo		19
